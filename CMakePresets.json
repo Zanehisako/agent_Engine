@@ -1,0 +1,35 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "dev",
+      "displayName": "Agent Engine dev",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/dev",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "AGENT_ENGINE_BUILD_EDITOR": "ON",
+        "AGENT_ENGINE_BUILD_EXAMPLES": "ON",
+        "AGENT_ENGINE_BUILD_TESTS": "ON",
+        "AGENT_ENGINE_ENABLE_HOT_RELOAD": "ON",
+        "AGENT_ENGINE_ENABLE_AGENT_ENDPOINTS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/mac/Projects/agent_Engine/build/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/_deps/sdl3-build/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/_deps/nlohmann_json-build/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/_deps/cpp_httplib-build/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/engine/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/examples/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/examples/sample_module/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/runtime/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/editor/cmake_install.cmake",
+		"/Users/mac/Projects/agent_Engine/build/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
