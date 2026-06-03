@@ -1,3 +1,4 @@
+#pragma once
 #include <chrono>
 namespace ae {
     class Timer{
