@@ -1,0 +1,6 @@
+namespace ae {
+    class Application{
+
+    };
+
+}

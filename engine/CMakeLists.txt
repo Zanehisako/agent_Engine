@@ -1,6 +1,6 @@
 file(GLOB_RECURSE ENGINE_SOURCES
     CONFIGURE_DEPENDS
-    src/*.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 )
 
 source_group(
