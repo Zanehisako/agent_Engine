@@ -1,4 +1,5 @@
 #include "AgentEngine/Engine.hpp"
+#include "AgentEngine/input.hpp"
 #include <print>
 
 #define SDL_EVENT_LIST(X)                    \
@@ -35,6 +36,10 @@ namespace ae
         bool IsRunning = true;
         SDL_Event Event;
         while (IsRunning) {
+            if (ae::Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) {
+                std::println("Escape key pressed");
+                IsRunning = false;
+            }
             while (SDL_PollEvent(&Event)) {
                 // std::println("event polled {}",GetEventName(Event.type));
                 if (Event.type == SDL_EVENT_QUIT) {
