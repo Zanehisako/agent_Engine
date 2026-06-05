@@ -35,16 +35,23 @@ namespace ae
     void Engine::Update() {
         bool IsRunning = true;
         SDL_Event Event;
+        ae::Input::BeginFrame();
         while (IsRunning) {
             if (ae::Input::IsKeyPressed(SDL_BUTTON_LEFT)) {
                 std::println("Escape key pressed");
                 IsRunning = false;
             }
-            if (ae::Input::IsMouseButtonPressed(SDL_BUTTON_LMASK)) {
-                std::println("Left mouse button pressed");
+            // if (ae::Input::IsMouseButtonDown(SDL_BUTTON_LMASK)) {
+            //     std::println("Left mouse button Down");
+            // }
+            // if (ae::Input::IsMouseButtonDown(SDL_BUTTON_RMASK)) {
+            //     std::println("right mouse button pressed");
+            // }
+            if (ae::Input::IsMouseButtonClicked(SDL_BUTTON_LMASK)) {
+                std::println("Left mouse button clicked");
             }
-            if (ae::Input::IsMouseButtonPressed(SDL_BUTTON_RMASK)) {
-                std::println("right mouse button pressed");
+            if (ae::Input::IsMouseButtonClicked(SDL_BUTTON_RMASK)) {
+                std::println("Right mouse button clicked");
             }
 
             // std::println("mouse position :{}",ae::Input::GetMousePosition());
@@ -53,9 +60,11 @@ namespace ae
                 if (Event.type == SDL_EVENT_QUIT) {
                     IsRunning = false;
                 }
-                timer.update();
             }
+            ae::Input::Update();
+            timer.update();
         }
+        ae::Input::EndFrame();
     }
     void Engine::Shutdown() {
         SDL_Quit();
