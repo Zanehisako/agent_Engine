@@ -36,9 +36,15 @@ namespace ae
         bool IsRunning = true;
         SDL_Event Event;
         while (IsRunning) {
-            if (ae::Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) {
+            if (ae::Input::IsKeyPressed(SDL_BUTTON_LEFT)) {
                 std::println("Escape key pressed");
                 IsRunning = false;
+            }
+            if (ae::Input::IsMouseButtonPressed(SDL_BUTTON_LMASK)) {
+                std::println("Left mouse button pressed");
+            }
+            if (ae::Input::IsMouseButtonPressed(SDL_BUTTON_RMASK)) {
+                std::println("right mouse button pressed");
             }
 
             // std::println("mouse position :{}",ae::Input::GetMousePosition());
