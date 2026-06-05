@@ -1,5 +1,5 @@
 #include "AgentEngine/Engine.hpp"
-#include "AgentEngine/input.hpp"
+#include "AgentEngine/Input.hpp"
 #include <print>
 
 #define SDL_EVENT_LIST(X)                    \
@@ -40,6 +40,8 @@ namespace ae
                 std::println("Escape key pressed");
                 IsRunning = false;
             }
+
+            // std::println("mouse position :{}",ae::Input::GetMousePosition());
             while (SDL_PollEvent(&Event)) {
                 // std::println("event polled {}",GetEventName(Event.type));
                 if (Event.type == SDL_EVENT_QUIT) {
