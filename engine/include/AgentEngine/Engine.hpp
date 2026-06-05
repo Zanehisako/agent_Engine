@@ -6,7 +6,7 @@ namespace ae
     {
     public:
         void Initialize();
-        void Update();
+        void Run();
         void Shutdown();
     private:
         ae::Timer timer;

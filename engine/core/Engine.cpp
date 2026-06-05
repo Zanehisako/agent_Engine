@@ -32,12 +32,21 @@ namespace ae
         SDL_Init(SDL_INIT_VIDEO);
         timer = Timer();
     }
-    void Engine::Update() {
+    void Engine::Run() {
         bool IsRunning = true;
-        SDL_Event Event;
-        ae::Input::BeginFrame();
         while (IsRunning) {
-            if (ae::Input::IsKeyPressed(SDL_BUTTON_LEFT)) {
+            ae::Input::BeginFrame();
+
+            SDL_Event event;
+            // std::println("mouse position :{}",ae::Input::GetMousePosition());
+            while (SDL_PollEvent(&event)) {
+                // std::println("event polled {}",GetEventName(Event.type));
+                if (event.type == SDL_EVENT_QUIT) {
+                    IsRunning = false;
+                }
+                ae::Input::ProcessEvent(&event);
+            }
+            if (ae::Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) {
                 std::println("Escape key pressed");
                 IsRunning = false;
             }
@@ -53,18 +62,8 @@ namespace ae
             if (ae::Input::IsMouseButtonClicked(SDL_BUTTON_RMASK)) {
                 std::println("Right mouse button clicked");
             }
-
-            // std::println("mouse position :{}",ae::Input::GetMousePosition());
-            while (SDL_PollEvent(&Event)) {
-                // std::println("event polled {}",GetEventName(Event.type));
-                if (Event.type == SDL_EVENT_QUIT) {
-                    IsRunning = false;
-                }
-            }
-            ae::Input::Update();
             timer.update();
         }
-        ae::Input::EndFrame();
     }
     void Engine::Shutdown() {
         SDL_Quit();

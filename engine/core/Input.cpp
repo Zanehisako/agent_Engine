@@ -9,35 +9,41 @@ namespace ae {
     Uint32 Input::currentMouseButtons = 0;
     Uint32 Input::prevMouseButtons = 0;
     void Input::BeginFrame(){
-        int keyCount = 0;
-        const bool* keys = SDL_GetKeyboardState(&keyCount);
-        currentKeys.reserve(keyCount);
-        prevKeys.reserve(keyCount);
-        for (int i =0;i<keyCount;++i){
-            currentKeys[i] = keys[i];
-            prevKeys[i] = keys[i];
-        }
-        currentMouseButtons = SDL_GetMouseState(nullptr, nullptr);
-        std::println("current mouse positions {}",currentMouseButtons);
-        prevMouseButtons = currentMouseButtons;
-    }
-    void Input::Update(){
-            prevMouseButtons = currentMouseButtons;
-            prevKeys = currentKeys;
-            int keyCount = 0;
-            const bool* keys = SDL_GetKeyboardState(&keyCount);
-            for (int i =0;i<keyCount;++i){
-                currentKeys[i] = keys[i];
-            }
-            currentMouseButtons = SDL_GetMouseState(nullptr,nullptr);
-            // if (currentMouseButtons!= 0){
-            //     std::println("current mouse buttons :{}",currentMouseButtons);
-            // }
-    }
-    void Input::EndFrame(){
         prevKeys = currentKeys;
         prevMouseButtons = currentMouseButtons;
+        int keyCount = 0;
+        const bool* keys = SDL_GetKeyboardState(&keyCount);
+        if (currentKeys.size()!= static_cast<size_t>(keyCount)){
+            currentKeys.resize(keyCount);
+            prevKeys.resize(keyCount);
+        }
+        for (int i =0;i<keyCount;++i){
+            currentKeys[i] = keys[i];
+        }
+        currentMouseButtons = SDL_GetMouseState(nullptr, nullptr);
+        // std::println("current mouse positions {}",currentMouseButtons);
     }
+    void Input::ProcessEvent(SDL_Event* event){
+        switch (event->type){
+            case SDL_EVENT_KEY_DOWN:
+            currentKeys[event->key.scancode] = true;
+            break;
+            case SDL_EVENT_KEY_UP:
+            currentKeys[event->key.scancode] = false;
+            break;
+            case SDL_EVENT_MOUSE_BUTTON_DOWN:
+            case SDL_EVENT_MOUSE_BUTTON_UP:
+            break;
+
+            default:
+            break;
+        }
+    }
+    // TODO :Implement in the future when we have more complex input
+    // void Input::EndFrame(){
+    //     prevKeys = currentKeys;
+    //     prevMouseButtons = currentMouseButtons;
+    // }
     bool Input::IsKeyPressed(int key){
         return currentKeys[key] && !prevKeys[key];
     }

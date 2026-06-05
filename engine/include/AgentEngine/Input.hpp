@@ -6,7 +6,7 @@ namespace ae {
     public:
         static void BeginFrame();
         static void EndFrame();
-        static void Update();
+        static void ProcessEvent(SDL_Event* event);
         static bool IsKeyDown(int key);
         static bool IsKeyPressed(int key);
         static bool IsKeyReleased(int key);
