@@ -32,20 +32,22 @@ namespace ae
         SDL_Init(SDL_INIT_VIDEO);
         timer = Timer();
     }
+
     void Engine::Run() {
         bool IsRunning = true;
         while (IsRunning) {
+            timer.update();
             ae::Input::BeginFrame();
 
             SDL_Event event;
-            // std::println("mouse position :{}",ae::Input::GetMousePosition());
             while (SDL_PollEvent(&event)) {
-                // std::println("event polled {}",GetEventName(Event.type));
                 if (event.type == SDL_EVENT_QUIT) {
                     IsRunning = false;
                 }
                 ae::Input::ProcessEvent(&event);
             }
+            ae::Input::SampleState();
+
             if (ae::Input::IsKeyPressed(SDL_SCANCODE_ESCAPE)) {
                 std::println("Escape key pressed");
                 IsRunning = false;
@@ -62,10 +64,10 @@ namespace ae
             if (ae::Input::IsMouseButtonClicked(SDL_BUTTON_RMASK)) {
                 std::println("Right mouse button clicked");
             }
-            timer.update();
         }
     }
     void Engine::Shutdown() {
+
         SDL_Quit();
     }
 }
