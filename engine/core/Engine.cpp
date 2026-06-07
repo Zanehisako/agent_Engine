@@ -1,5 +1,6 @@
 #include "AgentEngine/Engine.hpp"
 #include "AgentEngine/Input.hpp"
+#include "AgentEngine/Renderer.hpp"
 #include <print>
 
 #define SDL_EVENT_LIST(X)                    \
@@ -28,16 +29,20 @@ const char* GetEventName(Uint32 type)
 
 namespace ae
 {
-    void Engine::Initialize() {
+    Engine::Engine() {
         SDL_Init(SDL_INIT_VIDEO);
-        timer = Timer();
+        m_timer = Timer();
+        m_window = SDL_CreateWindow("Agent Engine", 800, 600, 0);
+        m_renderer = Renderer(SDL_CreateRenderer(m_window, NULL));
     }
 
     void Engine::Run() {
         bool IsRunning = true;
         while (IsRunning) {
-            timer.update();
+            m_timer.update();
             ae::Input::BeginFrame();
+            m_renderer.Clear();
+            m_renderer.BeginDraw();
 
             SDL_Event event;
             while (SDL_PollEvent(&event)) {
@@ -64,6 +69,7 @@ namespace ae
             if (ae::Input::IsMouseButtonClicked(SDL_BUTTON_RMASK)) {
                 std::println("Right mouse button clicked");
             }
+            m_renderer.EndDraw();
         }
     }
     void Engine::Shutdown() {

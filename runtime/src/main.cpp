@@ -12,11 +12,7 @@
 int main()
 {
     ae::Engine engine;
-    engine.Initialize();
-    {
-        ae::Window window(1000,100,"Agent Engine");
-        engine.Run();
-    }
+    engine.Run();
     engine.Shutdown();
 
     return 0;
